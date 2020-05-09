@@ -43,9 +43,9 @@
       las.addEventListener('reading', function(la) {
         lad.innerHTML = 'x: ' + la.target.x + '<br> y: ' + la.target.y + '<br> z: ' + la.target.z;
         if(i<win){
-          x_array[i] = la.target.x;
-          y_array[i] = la.target.y;
-          z_array[i] = la.target.z;
+          x_array[i] = Math.abs(la.target.x);
+          y_array[i] = Math.abs(la.target.y);
+          z_array[i] = Math.abs(la.target.z);
           console.log("i:"+i);
         }else{
           var j;
