@@ -12,7 +12,7 @@
   <script>
     let status = document.getElementById('status');
     if ( 'Accelerometer' in window ) {
-      let sensor = new Accelerometer();
+      let sensor = new LinearAcceleretionSensor();
       sensor.addEventListener('reading', function(e) {
         status.innerHTML = 'x: ' + e.target.x + '<br> y: ' + e.target.y + '<br> z: ' + e.target.z;
       });
