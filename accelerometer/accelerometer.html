@@ -7,32 +7,50 @@
   <meta charset="UTF-8">
 </head>
 <body>
+
+
   <h1>Accelerometer raw data</h1>
-  <div id="status">No data</div>
+  <div id="ad">No data</div>
   <script>
-    let status = document.getElementById('status');
+    let ad = document.getElementById('ad');
     if ( 'LinearAccelerationSensor' in window ) {
-      let sensor = new LinearAccelerationSensor({frequency: 50});
-      sensor.addEventListener('reading', function(e) {
-        status.innerHTML = 'x: ' + e.target.x + '<br> y: ' + e.target.y + '<br> z: ' + e.target.z;
+      let ad = new Accelerometer({frequency: 1});
+      ad.addEventListener('reading', function(a) {
+        ad.innerHTML = 'x: ' + a.target.x + '<br> y: ' + a.target.y + '<br> z: ' + a.target.z;
       });
-      sensor.start();
+      ad.start();
     }
-    else status.innerHTML = 'Linear Accelerometer not supported';
+    else ad.innerHTML = 'Accelerometer not supported';
+  </script>
+
+
+  <h1>Linear Accelerometer raw data</h1>
+  <div id="lad">No data</div>
+  <script>
+    let lad = document.getElementById('lad');
+    if ( 'LinearAccelerationSensor' in window ) {
+      let las = new LinearAccelerationSensor({frequency: 1});
+      las.addEventListener('reading', function(la) {
+        lad.innerHTML = 'x: ' + la.target.x + '<br> y: ' + la.target.y + '<br> z: ' + la.target.z;
+      });
+      las.start();
+    }
+    else lad.innerHTML = 'Linear Accelerometer not supported';
   </script>
   
   
-  <div id="status2">No data</div>
+  <h1>Gravity Accelerometer raw data</h1>
+  <div id="gad">No data</div>
   <script>
-    let status2 = document.getElementById('status2');
+    let gad = document.getElementById('gad');
     if ( 'GravitySensor' in window ) {
-      let sensor2 = new GravitySensor();
-      sensor2.addEventListener('reading', function(f) {
-        status2.innerHTML = 'x: ' + f.target.x + '<br> y: ' + f.target.y + '<br> z: ' + f.target.z;
+      let gas = new GravitySensor();
+      gas.addEventListener('reading', function(g) {
+        gad.innerHTML = 'x: ' + g.target.x + '<br> y: ' + g.target.y + '<br> z: ' + g.target.z;
       });
-      sensor2.start();
+      gas.start();
     }
-    else status2.innerHTML = 'Gravity sensor not supported';
+    else gad.innerHTML = 'Gravity sensor not supported';
   </script>
 
 </body>
