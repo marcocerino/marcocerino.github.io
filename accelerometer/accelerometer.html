@@ -68,6 +68,12 @@
           sosd /= win;
           sosd = Math.sqrt(sosd);
           k.innerHTML = sosd;
+
+          i=0;
+          
+          x_array[i] = Math.abs(la.target.x);
+          y_array[i] = Math.abs(la.target.y);
+          z_array[i] = Math.abs(la.target.z);
         }
       });
       las.start();
