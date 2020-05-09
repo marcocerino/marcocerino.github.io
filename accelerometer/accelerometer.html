@@ -28,12 +28,45 @@
 
   <h1>Linear Accelerometer raw data</h1>
   <div id="lad">No data</div>
+  <div id="k"> No k</div>
   <script>
     let lad = document.getElementById('lad');
+    let k = document.getElementById('k');
     if ( 'LinearAccelerationSensor' in window ) {
+      let win = 4;
+      var x_array = [];
+      var y_array = [];
+      var z_array = [];
+      var i = 0;
+
       let las = new LinearAccelerationSensor({frequency: 1});
       las.addEventListener('reading', function(la) {
         lad.innerHTML = 'x: ' + la.target.x + '<br> y: ' + la.target.y + '<br> z: ' + la.target.z;
+        if(i<win){
+          x_array[i] = la.target.x;
+          y_array[i] = la.target.y;
+          z_array[i] = la.target.z;
+          console.log("i:"+i);
+        }else{
+          var j;
+          
+          //l_sma = 1/win * sum(x_i+y_i+z_i)
+          var l_sma = 0;
+          for(j=0; j<win; j++){
+            l_sma += x_array[j] + y_array[j] + z_array[j]
+          }
+          l_sma /= win;
+
+
+          var sosd=0;
+          //sosd = (sum(x_i+y_i+z_i - l_sma)^2 / win)^1/2
+          for(j=0; j<win; j++){
+            sosd += Math.pow(x_array[j] + y_array[j] + z_array[j] - l_sma,2);
+          }
+          sosd /= win;
+          sosd = Math.sqrt(sosd);
+          k.innerHTML = sosd;
+        }
       });
       las.start();
     }
@@ -41,6 +74,12 @@
   </script>
   
   
+
+
+
+
+
+
   <h1>Gravity Accelerometer raw data</h1>
   <div id="gad">No data</div>
   <script>
