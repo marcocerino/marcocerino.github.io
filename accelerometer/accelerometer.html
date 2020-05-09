@@ -13,7 +13,7 @@
   <div id="ad">No data</div>
   <script>
     let ad = document.getElementById('ad');
-    if ( 'LinearAccelerationSensor' in window ) {
+    if ( 'Accelerometer' in window ) {
       let ad = new Accelerometer({frequency: 1});
       ad.addEventListener('reading', function(a) {
         ad.innerHTML = 'x: ' + a.target.x + '<br> y: ' + a.target.y + '<br> z: ' + a.target.z;
