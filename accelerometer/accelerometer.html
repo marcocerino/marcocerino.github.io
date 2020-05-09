@@ -11,24 +11,24 @@
   <div id="status">No data</div>
   <script>
     let status = document.getElementById('status');
-    if ( 'Accelerometer' in window ) {
-      let sensor = new LinearAccelereationSensor({frequency: 50});
+    if ( 'LinearAccelerationSensor' in window ) {
+      let sensor = new LinearAccelerationSensor({frequency: 50});
       sensor.addEventListener('reading', function(e) {
         status.innerHTML = 'x: ' + e.target.x + '<br> y: ' + e.target.y + '<br> z: ' + e.target.z;
       });
       sensor.start();
     }
-    else status.innerHTML = 'Accelerometer not supported';
+    else status.innerHTML = 'Linear Accelerometer not supported';
   </script>
   
   
   <div id="status2">No data</div>
   <script>
     let status2 = document.getElementById('status2');
-    if ( 'Accelerometer' in window ) {
-      let sensor2 = new GravitiSensor();
-      sensor.addEventListener('reading', function(e) {
-        status2.innerHTML = 'x: ' + e.target.x + '<br> y: ' + e.target.y + '<br> z: ' + e.target.z;
+    if ( 'GravitySensor' in window ) {
+      let sensor2 = new GravitySensor();
+      sensor.addEventListener('reading', function(f) {
+        status2.innerHTML = 'x: ' + f.target.x + '<br> y: ' + f.target.y + '<br> z: ' + f.target.z;
       });
       sensor.start();
     }
