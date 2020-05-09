@@ -29,9 +29,11 @@
   <h1>Linear Accelerometer raw data</h1>
   <div id="lad">No data</div>
   <div id="k"> No k</div>
+  <div id="stat"> Wait for status</div>
   <script>
     let lad = document.getElementById('lad');
     let k = document.getElementById('k');
+    let stat = document.getElementById('stat');
     if ( 'LinearAccelerationSensor' in window ) {
       var win = 4;
       var x_array = [];
@@ -67,10 +69,18 @@
           }
           sosd /= win;
           sosd = Math.sqrt(sosd);
-          k.innerHTML = sosd;
+          k.innerHTML = "standard deviation: " + sosd;
+
+
+          if(k<0.5){
+            stat.innerHTML = "Still";
+          }
+          else{
+            stat.innerHTML = "walking";
+          }
 
           i=0;
-          
+
           x_array[i] = Math.abs(la.target.x);
           y_array[i] = Math.abs(la.target.y);
           z_array[i] = Math.abs(la.target.z);
