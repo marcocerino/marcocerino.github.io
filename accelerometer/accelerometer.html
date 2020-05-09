@@ -30,9 +30,9 @@
       sensor2.addEventListener('reading', function(f) {
         status2.innerHTML = 'x: ' + f.target.x + '<br> y: ' + f.target.y + '<br> z: ' + f.target.z;
       });
-      sensor.start();
+      sensor2.start();
     }
-    else status.innerHTML = 'Gravity sensor not supported';
+    else status2.innerHTML = 'Gravity sensor not supported';
   </script>
 
 </body>
