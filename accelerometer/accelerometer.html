@@ -10,18 +10,20 @@
 
 
   <h1>Accelerometer raw data</h1>
-  <div id="ad">No data</div>
+  <div id="status">No data</div>
+
   <script>
-    let ad = document.getElementById('ad');
+    let status = document.getElementById('status');
     if ( 'Accelerometer' in window ) {
-      let ad = new Accelerometer({frequency: 1});
-      ad.addEventListener('reading', function(a) {
-        ad.innerHTML = 'x: ' + a.target.x + '<br> y: ' + a.target.y + '<br> z: ' + a.target.z;
+      let sensor = new Accelerometer();
+      sensor.addEventListener('reading', function(e) {
+        status.innerHTML = 'x: ' + e.target.x + '<br> y: ' + e.target.y + '<br> z: ' + e.target.z;
       });
-      ad.start();
+      sensor.start();
     }
-    else ad.innerHTML = 'Accelerometer not supported';
+    else status.innerHTML = 'Accelerometer not supported';
   </script>
+
 
 
   <h1>Linear Accelerometer raw data</h1>
