@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Accelerometer Example | Generic Sensor API | mobiForge</title>  
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="author" content="Ruadhan O'Donoghue">
+  <meta charset="UTF-8">
+</head>
+<body>
+
+
+  <div id="k"> No k</div>
+  <script>
+    
+    let k = document.getElementById('k');
+   
+    k.innerHTML = "test";
+    let win = 4;
+    var x_array = [];
+    var y_array = [];
+    var z_array = [];
+    var i = 0;
+
+    
+    while (i<win){
+      x_array[i] = i;
+      y_array[i] = i;
+      z_array[i] = i;
+      console.log(x_array[i]);
+      console.log(i);
+      i ++;
+    }
+      var j;
+          
+      //l_sma = 1/win * sum(x_i+y_i+z_i)
+      var l_sma = 0;
+      for(j=0; j<win; j++){
+        l_sma += x_array[j] + y_array[j] + z_array[j]
+        console.log("lsma: "+l_sma+"; j: "+j);
+      }
+      l_sma /= win;
+      console.log("final lsma = "+ l_sma);
+
+      var sosd = 0;
+      //sosd = (sum(x_i+y_i+z_i - l_sma)^2 / win)^1/2
+      for(j=0; j<win; j++){
+        sosd += Math.pow(x_array[j] + y_array[j] + z_array[j] - l_sma ,2);
+        console.log("sosd: "+ sosd+"; j: "+j);
+      }
+      sosd /= win;
+      sosd = Math.sqrt(sosd);
+      console.log("final sosd = "+ sosd);
+      k.innerHTML = sosd;
+   
+  </script>
+  
+  
+</body>
+</html>
