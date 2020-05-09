@@ -20,6 +20,20 @@
     }
     else status.innerHTML = 'Accelerometer not supported';
   </script>
+  
+  
+  <div id="status2">No data</div>
+  <script>
+    let status2 = document.getElementById('status2');
+    if ( 'Accelerometer' in window ) {
+      let sensor2 = new GravitiSensor();
+      sensor.addEventListener('reading', function(e) {
+        status2.innerHTML = 'x: ' + e.target.x + '<br> y: ' + e.target.y + '<br> z: ' + e.target.z;
+      });
+      sensor.start();
+    }
+    else status.innerHTML = 'Gravity sensor not supported';
+  </script>
 
 </body>
 </html>
