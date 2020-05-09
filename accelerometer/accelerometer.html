@@ -33,7 +33,7 @@
     let lad = document.getElementById('lad');
     let k = document.getElementById('k');
     if ( 'LinearAccelerationSensor' in window ) {
-      let win = 4;
+      var win = 4;
       var x_array = [];
       var y_array = [];
       var z_array = [];
@@ -42,6 +42,7 @@
       let las = new LinearAccelerationSensor({frequency: 1});
       las.addEventListener('reading', function(la) {
         lad.innerHTML = 'x: ' + la.target.x + '<br> y: ' + la.target.y + '<br> z: ' + la.target.z;
+        console.log('x: ' + la.target.x + '<br> y: ' + la.target.y + '<br> z: ' + la.target.z);
         if(i<win){
           x_array[i] = Math.abs(la.target.x);
           y_array[i] = Math.abs(la.target.y);
