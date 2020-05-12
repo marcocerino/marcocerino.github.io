@@ -34,24 +34,37 @@
     let ip = document.getElementById('ip').innerHTML;
     let message = document.getElementById('msg');
 
+    //thingsboard device access token
+    var token = "jiR0GCFal3uLslYtG3Ie";
+
+    //check sensor on device
     if ( 'LinearAccelerationSensor' in window ) {
+      //a window is formed by 4 relevation 
       var win = 4;
+
+      //array for saving retrived data locally
       var x_array = [];
       var y_array = [];
       var z_array = [];
+
       var i = 0;
 
+      //initialize sensor with frequency 1Hz
       let las = new LinearAccelerationSensor({frequency: 1});
+      //function exectued at each detection
       las.addEventListener('reading', function(la) {
+        // write values on html page
         lad.innerHTML = 'x: ' + la.target.x + '<br> y: ' + la.target.y + '<br> z: ' + la.target.z;
         console.log('x: ' + la.target.x + '<br> y: ' + la.target.y + '<br> z: ' + la.target.z);
         if(i<win){
+          //save values in the arrays
           x_array[i] = Math.abs(la.target.x);
           y_array[i] = Math.abs(la.target.y);
           z_array[i] = Math.abs(la.target.z);
           console.log("i:"+i);
           i++;
         }else{
+          //compute standard deviation
           var j;
           
           //l_sma = 1/win * sum(x_i+y_i+z_i)
@@ -69,9 +82,10 @@
           }
           sosd /= win;
           sosd = Math.sqrt(sosd);
+          //print standard deviation on html page
           k.innerHTML = "standard deviation: " + sosd;
 
-
+          //empirical treshold for standard deviation is 0.5
           if(sosd<0.5){
             stat.innerHTML = "Still";
           }
@@ -79,21 +93,29 @@
             stat.innerHTML = "Moving";
           }
 
+          //cerate message to be sent 
           var msg = "{\"user\":" + ip +",\"status\":\""+stat.innerHTML+"\"}";
           console.log(msg);
           message.innerHTML = msg;
 
-          i=0;
+          //TODO: send the message
 
+          //restert the loop
+          i=0;
           x_array[i] = Math.abs(la.target.x);
           y_array[i] = Math.abs(la.target.y);
           z_array[i] = Math.abs(la.target.z);
         }
       });
+      //start the sensor
       las.start();
     }
+
+    //error messgae
     else lad.innerHTML = 'Linear Accelerometer not supported';
   </script>
+
+  <p> To see all the status sent in the last hour go to <a href="test.html"> </p>
 
 </body>
 </html>

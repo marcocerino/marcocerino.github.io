@@ -40,18 +40,21 @@
       var z_array = [];
       var i = 0;
 
+      //initialize sensor with frequency 1Hz
       let las = new LinearAccelerationSensor({frequency: 1});
       las.addEventListener('reading', function(la) {
+      	//print value on html page
         lad.innerHTML = 'x: ' + la.target.x + '<br> y: ' + la.target.y + '<br> z: ' + la.target.z;
         console.log('x: ' + la.target.x + '<br> y: ' + la.target.y + '<br> z: ' + la.target.z);
         if(i<win){
+        	//save values in array
           x_array[i] = Math.abs(la.target.x);
           y_array[i] = Math.abs(la.target.y);
           z_array[i] = Math.abs(la.target.z);
           console.log("i:"+i);
           i++;
         }else{
-
+        	//create message to be sent to thingsboard
           var msg = "{\"ip\":" + ip +",\n\"data\":[\n"
           			+"{\"x\":"+x_array[0]+",\"y\":"+y_array[0]+",\"z\":"+z_array[0]+"},\n"
           			+"{\"x\":"+x_array[1]+",\"y\":"+y_array[1]+",\"z\":"+z_array[1]+"},\n"
@@ -61,6 +64,9 @@
           console.log(msg);
           message.innerHTML = msg;
 
+          //TODO: send the message
+
+          //restart the window
           i=0;
 
           x_array[i] = Math.abs(la.target.x);
@@ -68,8 +74,10 @@
           z_array[i] = Math.abs(la.target.z);
         }
       });
+      //start sensor
       las.start();
     }
+    //error messgae
     else lad.innerHTML = 'Linear Accelerometer not supported';
   </script>
 
