@@ -22,13 +22,10 @@
 
   <h1>Linear Accelerometer raw data</h1>
   <div id="lad">No data</div>
-  <div id="k"> Can't compute standard deviation</div>
   <h2 id="stat"> Wait for status</h2>
-
-  <h3 id="msg"> messgae </h3>
+  <h3 id="msg"> message </h3>
   <script>
     let lad = document.getElementById('lad');
-    let k = document.getElementById('k');
     let stat = document.getElementById('stat');
     let ip = document.getElementById('ip').innerHTML;
     let message = document.getElementById('msg');
@@ -66,7 +63,7 @@
 
           //TODO: send the message
           const Http = new XMLHttpRequest();
-          const url= "https://demo.thingsboard.io/api/v1/jiR0GCFal3uLslYtG3Ie/telemetry";
+          const url= "https://demo.thingsboard.io/api/v1/avwT7Z0xtZAvmhO59kd5/telemetry";
           Http.open("POST",url);
           Http.send(msg);
 
