@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Accelerometer Example | Generic Sensor API | mobiForge</title>  
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="author" content="Ruadhan O'Donoghue">
+  <meta charset="UTF-8">
+</head>
+<body>
+
+  <h1>IP address: </h1>
+  <h2 id="ip"> ip address</h2>
+  <script type="application/javascript">
+  function getIP(json) {
+    let ip = document.getElementById("ip");
+    ip.innerHTML = json.ip;
+  }
+  </script>
+
+  <script type="application/javascript" src="https://api.ipify.org?format=jsonp&callback=getIP"></script>
+
+
+  <h1>Linear Accelerometer raw data</h1>
+  <div id="lad">No data</div>
+  <div id="k"> Can't compute standard deviation</div>
+  <h2 id="stat"> Wait for status</h2>
+  <script>
+    let lad = document.getElementById('lad');
+    let k = document.getElementById('k');
+    let stat = document.getElementById('stat');
+    let ip = document.getElementById('ip').innerHTML;
+
+    if ( 'LinearAccelerationSensor' in window ) {
+      var win = 4;
+      var x_array = [];
+      var y_array = [];
+      var z_array = [];
+      var i = 0;
+
+      let las = new LinearAccelerationSensor({frequency: 1});
+      las.addEventListener('reading', function(la) {
+        lad.innerHTML = 'x: ' + la.target.x + '<br> y: ' + la.target.y + '<br> z: ' + la.target.z;
+        console.log('x: ' + la.target.x + '<br> y: ' + la.target.y + '<br> z: ' + la.target.z);
+        if(i<win){
+          x_array[i] = Math.abs(la.target.x);
+          y_array[i] = Math.abs(la.target.y);
+          z_array[i] = Math.abs(la.target.z);
+          console.log("i:"+i);
+          i++;
+        }else{
+          var j;
+          
+          //l_sma = 1/win * sum(x_i+y_i+z_i)
+          var l_sma = 0;
+          for(j=0; j<win; j++){
+            l_sma += x_array[j] + y_array[j] + z_array[j]
+          }
+          l_sma /= win;
+
+
+          var sosd=0;
+          //sosd = (sum(x_i+y_i+z_i - l_sma)^2 / win)^1/2
+          for(j=0; j<win; j++){
+            sosd += Math.pow(x_array[j] + y_array[j] + z_array[j] - l_sma,2);
+          }
+          sosd /= win;
+          sosd = Math.sqrt(sosd);
+          k.innerHTML = "standard deviation: " + sosd;
+
+
+          if(sosd<0.5){
+            stat.innerHTML = "Still";
+          }
+          else{
+            stat.innerHTML = "Moving";
+          }
+
+          var msg = "{\"user\":" + ip +",\"status\":"+stat.innerHTML+"}";
+          console.log(msg);
+
+          i=0;
+
+          x_array[i] = Math.abs(la.target.x);
+          y_array[i] = Math.abs(la.target.y);
+          z_array[i] = Math.abs(la.target.z);
+        }
+      });
+      las.start();
+    }
+    else lad.innerHTML = 'Linear Accelerometer not supported';
+  </script>
+
+</body>
+</html>
