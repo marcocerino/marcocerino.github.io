@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Send test</title>  
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="author" content="Ruadhan O'Donoghue">
+  <meta charset="UTF-8">
+</head>
+<body>
+	<div id=status> no status</div>
+	<script >
+		let status = document.getElementById("status");
+		var msg = "{\"temp\":0}";
+
+		const Http = new XMLHttpRequest();
+		const url= "https://demo.thingsboard.io/api/v1/67v7kSViFKVYDccBawvd/telemetry";
+		Http.open("POST",url);
+		Http.send(msg);
+	</script>
+</body>
+</html>
