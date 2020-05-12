@@ -10,6 +10,7 @@
 
   <h1>IP address: </h1>
   <h2 id="ip"> ip address</h2>
+  <!--Get device public ip address -->
   <script type="application/javascript">
   function getIP(json) {
     let ip = document.getElementById("ip");
@@ -24,11 +25,14 @@
   <div id="lad">No data</div>
   <div id="k"> Can't compute standard deviation</div>
   <h2 id="stat"> Wait for status</h2>
+  <h3 id="msg"> messgae </h3>
+
   <script>
     let lad = document.getElementById('lad');
     let k = document.getElementById('k');
     let stat = document.getElementById('stat');
     let ip = document.getElementById('ip').innerHTML;
+    let message = document.getElementById('msg');
 
     if ( 'LinearAccelerationSensor' in window ) {
       var win = 4;
@@ -77,6 +81,7 @@
 
           var msg = "{\"user\":" + ip +",\"status\":"+stat.innerHTML+"}";
           console.log(msg);
+          message.innerHTML = msg;
 
           i=0;
 

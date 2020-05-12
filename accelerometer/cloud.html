@@ -24,11 +24,14 @@
   <div id="lad">No data</div>
   <div id="k"> Can't compute standard deviation</div>
   <h2 id="stat"> Wait for status</h2>
+
+  <h3 id="msg"> messgae </h3>
   <script>
     let lad = document.getElementById('lad');
     let k = document.getElementById('k');
     let stat = document.getElementById('stat');
     let ip = document.getElementById('ip').innerHTML;
+    let message = document.getElementById('msg');
 
     if ( 'LinearAccelerationSensor' in window ) {
       var win = 4;
@@ -56,6 +59,7 @@
           			+"{\"x\":"+x_array[3]+"{\"y\":"+y_array[3]+"{\"z\":"+z_array[3]+"},\n"
           			+"]\n}";
           console.log(msg);
+          message.innerHTML = msg;
 
           i=0;
 
