@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Accelerometer Example | Generic Sensor API | mobiForge</title>  
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="author" content="Ruadhan O'Donoghue">
+  <meta charset="UTF-8">
+</head>
+<body>
+
+  <h1>IP address: </h1>
+  <h2 id="ip"> ip address</h2>
+  <script type="application/javascript">
+  function getIP(json) {
+    let ip = document.getElementById("ip");
+    ip.innerHTML = json.ip;
+  }
+  </script>
+
+  <script type="application/javascript" src="https://api.ipify.org?format=jsonp&callback=getIP"></script>
+
+
+  <h1>Linear Accelerometer raw data</h1>
+  <div id="lad">No data</div>
+  <div id="k"> Can't compute standard deviation</div>
+  <h2 id="stat"> Wait for status</h2>
+  <script>
+    let lad = document.getElementById('lad');
+    let k = document.getElementById('k');
+    let stat = document.getElementById('stat');
+    let ip = document.getElementById('ip').innerHTML;
+
+    if ( 'LinearAccelerationSensor' in window ) {
+      var win = 4;
+      var x_array = [];
+      var y_array = [];
+      var z_array = [];
+      var i = 0;
+
+      let las = new LinearAccelerationSensor({frequency: 1});
+      las.addEventListener('reading', function(la) {
+        lad.innerHTML = 'x: ' + la.target.x + '<br> y: ' + la.target.y + '<br> z: ' + la.target.z;
+        console.log('x: ' + la.target.x + '<br> y: ' + la.target.y + '<br> z: ' + la.target.z);
+        if(i<win){
+          x_array[i] = Math.abs(la.target.x);
+          y_array[i] = Math.abs(la.target.y);
+          z_array[i] = Math.abs(la.target.z);
+          console.log("i:"+i);
+          i++;
+        }else{
+
+          var msg = "{\"ip\":" + ip +",\n\"data\":[\n"
+          			+"{\"x\":"+x_array[0]+"{\"y\":"+y_array[0]+"{\"z\":"+z_array[0]+"},\n"
+          			+"{\"x\":"+x_array[1]+"{\"y\":"+y_array[1]+"{\"z\":"+z_array[1]+"},\n"
+          			+"{\"x\":"+x_array[2]+"{\"y\":"+y_array[2]+"{\"z\":"+z_array[2]+"},\n"
+          			+"{\"x\":"+x_array[3]+"{\"y\":"+y_array[3]+"{\"z\":"+z_array[3]+"},\n"
+          			+"]\n}";
+          console.log(msg);
+
+          i=0;
+
+          x_array[i] = Math.abs(la.target.x);
+          y_array[i] = Math.abs(la.target.y);
+          z_array[i] = Math.abs(la.target.z);
+        }
+      });
+      las.start();
+    }
+    else lad.innerHTML = 'Linear Accelerometer not supported';
+  </script>
+
+</body>
+</html>
