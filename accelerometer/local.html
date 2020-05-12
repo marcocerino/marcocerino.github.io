@@ -8,7 +8,7 @@
 </head>
 <body>
 
-  <h1>IP address: </h1>
+  <h2> Your public IP address is : </h1>
   <h2 id="ip"> ip address</h2>
   <!--Get device public ip address -->
   <script type="application/javascript">
@@ -25,14 +25,12 @@
   <div id="lad">No data</div>
   <div id="k"> Can't compute standard deviation</div>
   <h2 id="stat"> Wait for status</h2>
-  <h3 id="msg"> messgae </h3>
 
   <script>
     let lad = document.getElementById('lad');
     let k = document.getElementById('k');
     let stat = document.getElementById('stat');
     let ip = document.getElementById('ip').innerHTML;
-    let message = document.getElementById('msg');
 
     //thingsboard device access token
     var token = "jiR0GCFal3uLslYtG3Ie";
@@ -119,7 +117,7 @@
     else lad.innerHTML = 'Linear Accelerometer not supported';
   </script>
 
-  <p> To see all the status sent in the last hour go to <a href="test.html"> </p>
+  <p> To see all the status sent in the last hour go to this <a href="https://demo.thingsboard.io:/dashboard/2169c140-9443-11ea-9a66-358c6522b855?publicId=d2ff5950-6a96-11ea-8e0a-7d0ef2a682d3"> dashboard </a> developed thank to <a href="https://thingsboard.io">ThingsBoard</a> </p>
 
 </body>
 </html>
