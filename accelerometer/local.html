@@ -99,6 +99,11 @@
 
           //TODO: send the message
 
+          const Http = new XMLHttpRequest();
+          const url= "https://demo.thingsboard.io/api/v1/jiR0GCFal3uLslYtG3Ie/telemetry";
+          Http.open("POST",url);
+          Http.send(msg);
+
           //restert the loop
           i=0;
           x_array[i] = Math.abs(la.target.x);
