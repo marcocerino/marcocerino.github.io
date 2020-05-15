@@ -3,7 +3,7 @@
 <head>
   <title>Cloud based Human Activity Recognition</title>  
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="author" content="Ruadhan O'Donoghue">
+  <meta name="author" content="Marco Cerino">
   <meta charset="UTF-8">
 </head>
 <body>
@@ -23,12 +23,10 @@
   <h1>Linear Accelerometer raw data</h1>
   <div id="lad">No data</div>
   <h2 id="stat"> To see all the data sent in the last hour with their respctive status, go to the following <a href="https://demo.thingsboard.io:/dashboard/b61584a0-9466-11ea-9a66-358c6522b855?publicId=d2ff5950-6a96-11ea-8e0a-7d0ef2a682d3">dashboard</a> developed thanks to <a href="https://thingsboard.io">ThingsBoard</a></h2>
-  <h3 id="msg"> message </h3>
   <script>
     let lad = document.getElementById('lad');
     let stat = document.getElementById('stat');
     let ip = document.getElementById('ip').innerHTML;
-    let message = document.getElementById('msg');
 
     if ( 'LinearAccelerationSensor' in window ) {
       var win = 4;
@@ -59,7 +57,6 @@
           			+"{\"x\":"+x_array[3]+",\"y\":"+y_array[3]+",\"z\":"+z_array[3]+"}\n"
           			+"]\n}";
           console.log(msg);
-          message.innerHTML = msg;
 
           //TODO: send the message
           const Http = new XMLHttpRequest();
